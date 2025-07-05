@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+jinja2
+python-multipart  # Optional: required for file uploads or some form parsing
+
