@@ -17,12 +17,30 @@ checker = CloudIPChecker()
 checker.download_files(force=False)
 checker.load_data()
 
+def get_real_client_ip(request: Request) -> str:
+    try:
+        xff = request.headers.get("X-Forwarded-For", "")
+        if xff:
+            return xff.split(",")[0].strip()
+        elif request.client and request.client.host:
+            return request.client.host
+        else:
+            return "unknown"
+    except Exception:
+        return "unknown"
+
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
+    client_ip = get_real_client_ip(request)
+    logging.info(f"GET request from client IP: {client_ip}")
+
     return templates.TemplateResponse("index.html", {"request": request, "results": None, "error": None})
 
 @app.post("/", response_class=HTMLResponse)
 async def submit(request: Request, ip: str = Form(...)):
+    client_ip = get_real_client_ip(request)
+    logging.info(f"POST request from client IP: {client_ip}")
+
     ip = ip[:39].strip()
     if not checker.is_ip_address(ip.strip()):
         return templates.TemplateResponse("index.html", {
