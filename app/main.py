@@ -62,9 +62,7 @@ async def submit(request: Request, ip: str = Form(...)):
 
 @app.get("/api/ip/{ip}")
 async def api_lookup(ip: str):
-    client_ip = get_real_client_ip(request)
     ip = ip[:39].strip()
-    logging.info(f"POST from client IP: {client_ip} querying {ip}")
     if not checker.is_ip_address(ip.strip()):
         return JSONResponse(status_code=400, content={"error": f"{ip} is not a valid IP address."})
     results = checker.lookup_ip(ip.strip())
