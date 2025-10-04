@@ -14,6 +14,7 @@ checkip.cloud queries against the following providers:
 * Microsoft 365 (M365)
 * Oracle Cloud Infrastructure (OCI)
 * Digital Ocean
+* Linode
 
 See [`cloud_ip_checker.py`](https://github.com/mpawl/cloud-ip-checker) for more information on where this data comes from and how the data sources can be updated. 
 
