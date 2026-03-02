@@ -24,10 +24,16 @@ def get_real_client_ip(request: Request) -> str:
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
+    logging.info(f"request.client.host = {request.client.host}")
+    logging.info(f"x-forwarded-for = {request.headers.get('x-forwarded-for')}")
+
     client_ip = get_real_client_ip(request)
     logging.info(f"GET request from client IP: {client_ip}")
 
-    return templates.TemplateResponse("index.html", {"request": request, "results": None, "error": None})
+    return templates.TemplateResponse(
+        "index.html",
+        {"request": request, "results": None, "error": None}
+    )
 
 @app.post("/", response_class=HTMLResponse)
 async def submit(request: Request, ip: str = Form(...)):
