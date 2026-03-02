@@ -63,6 +63,8 @@ async def submit(request: Request, ip: str = Form(...)):
 # async def api_lookup(ip: str):
 async def api_lookup(ip: str, request: Request):
     logging.info(f"API request from {request.client.host}")
+    logging.info(f"[API] x-forwarded-for = {request.headers.get('x-forwarded-for')}")
+    
     ip = ip[:39].strip()
     if not checker.is_ip_address(ip.strip()):
         return JSONResponse(status_code=400, content={"error": f"{ip} is not a valid IP address."})
