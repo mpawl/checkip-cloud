@@ -18,16 +18,9 @@ checker.download_files(force=False)
 checker.load_data()
 
 def get_real_client_ip(request: Request) -> str:
-    try:
-        xff = request.headers.get("X-Forwarded-For", "")
-        if xff:
-            return xff.split(",")[0].strip()
-        elif request.client and request.client.host:
-            return request.client.host
-        else:
-            return "unknown"
-    except Exception:
-        return "unknown"
+    if request.client:
+        return request.client.host
+    return "unknown"
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
