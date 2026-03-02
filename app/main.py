@@ -60,7 +60,9 @@ async def submit(request: Request, ip: str = Form(...)):
     return templates.TemplateResponse("index.html", {"request": request, "ip": ip, "results": results, "error": None})
 
 @app.get("/api/ip/{ip}")
-async def api_lookup(ip: str):
+# async def api_lookup(ip: str):
+async def api_lookup(ip: str, request: Request):
+    logging.info(f"API request from {request.client.host}")
     ip = ip[:39].strip()
     if not checker.is_ip_address(ip.strip()):
         return JSONResponse(status_code=400, content={"error": f"{ip} is not a valid IP address."})
