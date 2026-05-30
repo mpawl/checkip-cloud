@@ -31,8 +31,9 @@ async def index(request: Request):
     logging.info(f"GET request from client IP: {client_ip}")
 
     return templates.TemplateResponse(
+        request,
         "index.html",
-        {"request": request, "results": None, "error": None}
+        {"results": None, "error": None}
     )
 
 @app.post("/", response_class=HTMLResponse)
@@ -42,22 +43,20 @@ async def submit(request: Request, ip: str = Form(...)):
     ip = ip[:39].strip()
     logging.info(f"POST from client IP: {client_ip} querying {ip}")
     if not checker.is_ip_address(ip.strip()):
-        return templates.TemplateResponse("index.html", {
-            "request": request,
+        return templates.TemplateResponse(request, "index.html", {
             "results": None,
             "error": f"{ip} is not a valid IP address."
         })
     results = checker.lookup_ip(ip.strip())
     if not results:
-        return templates.TemplateResponse("index.html", {
-            "request": request,
+        return templates.TemplateResponse(request, "index.html", {
             "ip": ip,
             "results": None,
             "error": f"{ip} not found."
         })
     if logging_enabled:
         logging.info(f"UI IP lookup: {ip}")
-    return templates.TemplateResponse("index.html", {"request": request, "ip": ip, "results": results, "error": None})
+    return templates.TemplateResponse(request, "index.html", {"ip": ip, "results": results, "error": None})
 
 @app.get("/api/ip/{ip}")
 # async def api_lookup(ip: str):
