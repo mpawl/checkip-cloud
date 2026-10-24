@@ -16,8 +16,12 @@ import urllib.request
 from typing import Any, Dict, List, Optional, Set, TypedDict
 from urllib.error import HTTPError, URLError
 
-# This is the directory inside of the current directory where data files will be stored.
-DATA_DIR = "cloud_ip_data"
+# Keep bundled provider data independent of the process's current working directory.
+PACKAGE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.environ.get(
+    "CLOUD_IP_DATA_DIR",
+    os.path.join(PACKAGE_DIR, "cloud_ip_data"),
+)
 
 DEFAULT_TIMEOUT = 30.0
 DEFAULT_MAX_RETRIES = 2

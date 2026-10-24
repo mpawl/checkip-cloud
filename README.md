@@ -20,6 +20,8 @@ checkip.cloud queries against the following providers:
 
 See [`cloud_ip_checker.py`](https://github.com/mpawl/cloud-ip-checker) for more information on where this data comes from and how the data sources can be updated. 
 
+The bundled provider data lives in [`cloud_ip_checker/cloud_ip_data/`](cloud_ip_checker/cloud_ip_data/). The checker resolves it relative to its Python module, so running from a different working directory does not change which data it uses. Set `CLOUD_IP_DATA_DIR` to use another data directory.
+
 ## Web UI
 
 The web UI is simple. It takes an IP as input and prints output in a simple HTML table. 
