@@ -1,10 +1,9 @@
-FROM python:3.10-slim
+FROM python:3.13.17-slim
 
 WORKDIR /app
 
 COPY . .
-RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install -e .
+RUN pip install --no-cache-dir --require-hashes -r requirements.txt
 
 COPY app/ ./app/
 

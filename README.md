@@ -85,3 +85,14 @@ curl -s http://<host>/api/ip/2620:1ec:4::152 | jq
   ]
 }
 ```
+
+## Development
+
+Runtime and development dependencies are pinned in the generated requirements files. To install the test dependencies and run the regression suite:
+
+```
+python -m pip install --require-hashes -r requirements-dev.txt
+python -m pytest
+```
+
+The pinned source inputs are `requirements.in` and `requirements-dev.in`. After changing them, install `pip-tools` and regenerate the lock files with `pip-compile --generate-hashes --output-file=requirements.txt requirements.in` and `pip-compile --generate-hashes --output-file=requirements-dev.txt requirements-dev.in`.
