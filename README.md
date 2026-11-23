@@ -99,3 +99,11 @@ python -m pytest
 
 The pinned source inputs are `requirements.in` and `requirements-dev.in`. After changing them, install `pip-tools` and regenerate the lock files with `pip-compile --generate-hashes --output-file=requirements.txt requirements.in` and `pip-compile --generate-hashes --output-file=requirements-dev.txt requirements-dev.in`.
 
+CI runs the regression suite on Python 3.13 and 3.15, then builds the production Docker image and checks its dependency compatibility and HTTP endpoints. To run the same smoke checks against a local server:
+
+```
+python tests/smoke_server.py http://127.0.0.1:8000
+```
+
+The smoke checks use the bundled provider data to verify IPv4 and IPv6 lookups, HTML forms (URL-encoded and multipart), invalid and missing IPs, and the OpenAPI schema.
+
