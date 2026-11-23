@@ -7,10 +7,34 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.13", "3.15"]
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
-          python-version: "3.13"
+          python-version: ${{ matrix.python-version }}
       - run: python -m pip install --require-hashes -r requirements-dev.txt
+      - run: python -m pip check
       - run: python -m pytest
+
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build production image
+        run: docker build --pull --tag checkip:test .
+      - name: Check production dependencies
+        run: docker run --rm checkip:test python -m pip check
+      - name: Start production server
+        run: docker run --detach --name checkip-test --publish 127.0.0.1:8000:8000 checkip:test
+      - name: Check production HTTP endpoints
+        run: python3 tests/smoke_server.py http://127.0.0.1:8000
+      - name: Show server logs
+        if: always()
+        run: docker logs checkip-test
+      - name: Stop production server
+        if: always()
+        run: docker rm --force checkip-test
