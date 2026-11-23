@@ -781,19 +781,6 @@
     "notes": "Outlook for Android and iOS: Consumer Outlook.com and OneDrive integration"
   },
   {
-    "id": 105,
-    "serviceArea": "Common",
-    "serviceAreaDisplayName": "Microsoft 365 Common and Office Online",
-    "urls": [
-      "www.acompli.com"
-    ],
-    "tcpPorts": "443",
-    "expressRoute": false,
-    "category": "Default",
-    "required": false,
-    "notes": "Outlook for Android and iOS: Outlook Privacy"
-  },
-  {
     "id": 114,
     "serviceArea": "Common",
     "serviceAreaDisplayName": "Microsoft 365 Common and Office Online",
@@ -1054,7 +1041,19 @@
     "serviceArea": "Common",
     "serviceAreaDisplayName": "Microsoft 365 Common and Office Online",
     "urls": [
-      "*.cloud.microsoft",
+      "*.cloud.microsoft"
+    ],
+    "tcpPorts": "443",
+    "udpPorts": "443",
+    "expressRoute": false,
+    "category": "Default",
+    "required": true
+  },
+  {
+    "id": 193,
+    "serviceArea": "Common",
+    "serviceAreaDisplayName": "Microsoft 365 Common and Office Online",
+    "urls": [
       "*.static.microsoft",
       "*.usercontent.microsoft"
     ],
@@ -1062,6 +1061,7 @@
     "udpPorts": "443",
     "expressRoute": false,
     "category": "Default",
-    "required": true
+    "required": true,
+    "notes": ""
   }
 ]
