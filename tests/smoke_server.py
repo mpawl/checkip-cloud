@@ -25,7 +25,7 @@ def check_server(base_url):
         try:
             page = request("/")
             break
-        except (URLError, TimeoutError):
+        except (URLError, TimeoutError, ConnectionError):
             if time.monotonic() >= deadline:
                 raise
             time.sleep(1)
