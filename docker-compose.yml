@@ -5,7 +5,7 @@ services:
     build:
       context: .
     ports:
-      - "8000:8000"
+      - "${CHECKIP_HOST_BIND:-127.0.0.1:8000}:8000"
     environment:
       - ENABLE_LOGGING=true
     restart: unless-stopped
