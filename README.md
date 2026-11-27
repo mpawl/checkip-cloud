@@ -107,3 +107,9 @@ python tests/smoke_server.py http://127.0.0.1:8000
 
 The smoke checks use the bundled provider data to verify IPv4 and IPv6 lookups, HTML forms (URL-encoded and multipart), invalid and missing IPs, and the OpenAPI schema.
 
+<!-- managed cloud IP source URLs: start -->
+## Manually maintained Microsoft data URLs
+
+* Azure: https://download.microsoft.com/download/7/1/d/71d86715-5596-4529-9b13-da13a5de5b63/ServiceTags_Public_20261123.json
+* Microsoft 365: https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7
+<!-- managed cloud IP source URLs: end -->
